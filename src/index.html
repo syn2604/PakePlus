@@ -1,32 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="styles.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>PakePlus App</title>
-        <script type="module" src="/main.js" defer></script>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Navigation Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+            color: white;
+        }
+        .nav-container {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 3em;
+            animation: fadeInUp 2s ease-in-out;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #61dafb;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: bounceIn 2s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(97, 218, 251, 0.5);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounceIn {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #fff;
+            border-radius: 50%;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <h1>春日ACG</h1>
+        <button onclick="window.location.href='https://cracg.co'">点击进入</button>
+    </div>
+    <div class="particles"></div>
 
-    <body>
-        <main class="container">
-            <h1>Welcome to PakePlus</h1>
-            <form class="row" id="greet-form">
-                <input id="inputValue" placeholder="Enter a something..." />
-            </form>
-            <div class="resultBox">
-                <span>result: </span>
-                <span id="result"></span>
-            </div>
-            <div class="invokeBox">
-                <button id="openUrl">open_url_browser</button>
-                <button id="openUrlNew">open_url_new</button>
-                <button id="runCommand">run_command</button>
-                <button id="downloadFile">download_file</button>
-                <button id="getExeDir">get_exe_dir</button>
-                <button id="getEnvVar">get_env_var</button>
-                <button id="findPort">find_port</button>
-            </div>
-        </main>
-    </body>
+    <script>
+        const particlesContainer = document.querySelector('.particles');
+        const particleCount = 50;
+
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const size = Math.random() * 2 + 1;
+            const duration = Math.random() * 10 + 5;
+            const delay = Math.random() * 5;
+
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.animation = `fall ${duration}s linear infinite ${delay}s`;
+
+            particlesContainer.appendChild(particle);
+
+            return particle;
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+
+        function fall() {
+            return `
+                @keyframes fall {
+                    0% {
+                        transform: translateY(0) translateX(0);
+                    }
+                    25% {
+                        transform: translateY(${Math.random() * 100}px) translateX(${Math.random() * 20 - 10}px);
+                    }
+                    50% {
+                        transform: translateY(${Math.random() * 200}px) translateX(${Math.random() * 20 - 10}px);
+                    }
+                    75% {
+                        transform: translateY(${Math.random() * 300}px) translateX(${Math.random() * 20 - 10}px);
+                    }
+                    100% {
+                        transform: translateY(${Math.random() * 400}px) translateX(${Math.random() * 20 - 10}px);
+                    }
+                }
+            `;
+        }
+
+        const styleSheet = document.createElement("style");
+        styleSheet.type = "text/css";
+        styleSheet.innerText = fall();
+        document.head.appendChild(styleSheet);
+    </script>
+</body>
 </html>
